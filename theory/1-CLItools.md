@@ -670,3 +670,59 @@ $ ros2 topic pub  /turtlesim1/turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: 
 $ ros2 topic pub  /turtlesim2/turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: -1.8}}"
 ```
 
+---
+
+# Recording and playing back data
+ros2 bag is a command line tool for recording data published on topics in your system.<br>
+It accumulates the data passed on any number of topics and saves it in a database.<br>
+You can then replay the data to reproduce the results of your tests and experiments.<br>
+Recording topics is also a great way to share your work and allow others to recreate it.
+## Tasks
+### 1. Setup
+Run turtlesim_node and turtle_teleop_key in two terminals.<br>
+Let's make a new directory to store our saved recordings.
+### 2. Choose a topic
+To see the list of your system’s topics, open a new terminal and run the command:
+```bash
+$ ros2 topic list
+```
+In the topics tutorial, you learned that the /turtle_teleop node publishes commands on the /turtle1/cmd_vel topic to make the turtle move in turtlesim.<br>
+To see the data that /turtle1/cmd_vel is publishing, run the command:
+```bash
+$ ros2 topic echo /turtle1/cmd_vel
+```
+### 3. ros2 bag record
+#### 3.1 Record a single topic
+```bash
+#Move to the dir where you want to save your data before running the command
+$ ros2 bag record <topic_name>
+#Ctrl+C to stop recording. The directory will contain a metadata.yaml along with the bag file in the recorded format.
+```
+#### 3.2 Record multiple topics
+```bash
+#Move to the dir where you want to save your data before running the command
+$ ros2 bag record -o subset /turtle1/cmd_vel /turtle1/pose
+
+#The -o option allows you to choose a unique name for your bag file. The following string, in this case subset, is the file name.
+#To record more than one topic at a time, simply list each topic separated by a space.
+```
+### 4. ros2 bag info
+You can see details about your recording by running:
+```bash
+#Move to the dir where you want to save your data before running the command
+$ ros2 bag info <bag_file_name>
+```
+### 5. ros2 bag play
+In the terminal where teleop is running:
+```bash
+#Ctrl+C, then: 
+$ ros2 bag play subset
+'''
+Your turtle will follow the same path you entered while recording (though not 100% exactly; turtlesim is sensitive to small changes in the system’s timing).
+'''
+```
+Because the subset file recorded the /turtle1/pose topic, the ros2 bag play command won’t quit for as long as you had turtlesim running, even if you weren’t moving.<br>
+To get an idea of how often position data is published, you can run the command:
+```bash 
+$ ros2 topic hz /turtle1/pose
+```
