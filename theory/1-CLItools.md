@@ -378,17 +378,86 @@ In another terminal, run:
 ```bash
 $ ros2 run turtlesim turle_teleop_key
 ```
-### 2. Setup
+### 2. ros2 service list
+Running the ros2 service list command in a new terminal will return a list of all the services currently active in the system:
+```bash
+$ ros2 service list
+# /clear
+# /kill
+# ...
+```
+You will see that both nodes have the same six services with parameters in their names.<br>
+Nearly every node in ROS 2 has these infrastructure services that parameters are built off of.<br>
+There will be more about parameters in the next tutorial. In this tutorial, the parameter services will be omitted from the discussion.
+### 3. ros2 service type
+Services have types that describe how the request and response data of a service is structured.<br>
+Service types are defined similarly to topic types, except service types have two parts: one message for the request and another for the response.<br>
+To find out the type of a service:
+```bash
+$ ros2 service type <service_name>
 
+#Example
+$ ros2 service type /clear
+# will print: std_srvs/srv/Empty
+# The Empty type means the service call sends no data when making a request and receives no data when receiving a response.
 
+#To see the types of all the active services at the same time, you can append the --show-types option, abbreviated as -t, to the list command:
+$ ros2 service list -t
+```
+### 4. ros2 service find
+If you want to find all the services of a specific type:
+```bash
+$ ros2 service find <type_name>
 
+#Example to find all the Emtpy typed services:
+$ ros2 service find std_srvs/srv/Empty
+```
+### 5. ros2 interface show
+You can call services from the command line, but first you need to know the structure of the input arguments:
+```bash
+$ ros2 interface show <type_name>
 
+#Example on the /clear service's type, Empty:
+$ ros2 interface show std_srvs/srv/Empty
+# Output: ---
+```
+The --- separates the request structure (above) from the response structure (below).<br>
+But, as you learned earlier, the Empty type doesn’t send or receive any data. So, naturally, its structure is blank.
+Let’s introspect a service with a type that sends and receives data, like /spawn.<br> 
+From the results of ros2 service list -t, we know /spawn’s type is turtlesim/srv/Spawn.<br>
+To see the request and response arguments of the /spawn service, run the command:
+```bash
+$ ros2 interface show turtlesim/srv/Spawn
+'''
+float32 x
+float32 y
+float32 theta
+string name # Optional.  A unique name will be created and returned if this is empty
+---
+string name
+'''
 
+'''
+The information above the --- line tells us the arguments needed to call /spawn. x, y and theta determine the 2D pose of the spawned turtle, and name is clearly optional.
+'''
+```
+### 6. ros2 service call
+Now that you know what a service type is, how to find a service’s type, and how to find the structure of that type’s arguments, you can call a service using:
+```bash
+$ ros2 service call <service_name> <service_type> <arguments>
+#The <arguments> part is optional. For example, you know that Empty typed services don’t have any arguments:
+```
+Example:
+<'arguments'> in a service call from the cmd need to be in YAML syntax
+```bash
+#We want to spawn a new turtle by calling /spawn and setting arguments.
+$ ros2 service call /spawn turtlesim/srv/Spawn "{x: 2, y: 2, theta: 0.2, name: ''}"
 
-
-
-
-
+'''
+response:
+turtlesim.srv.Spawn_Response(name='turtle2')
+'''
+```
 
 
 
