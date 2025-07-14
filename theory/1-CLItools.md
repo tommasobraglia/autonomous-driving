@@ -611,3 +611,37 @@ To see the feedback of this goal, add --feedback to the ros2 action send_goal co
 ```bash
 $ ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute "{theta: -1.57}" --feedback
 ```
+
+---
+
+# Using rqt_console to view logs
+rqt_console is a GUI tool used to introspect log messages in ROS 2.<br>
+Typically, log messages show up in your terminal.<br>
+With rqt_console, you can collect those messages over time, view them closely and in a more organized manner, filter them, save them and even reload the saved files to introspect at a different time.<br>
+Nodes use logs to output messages concerning events and status in a variety of ways. Their content is usually informational, for the sake of the user.
+## 1. Setup
+Start rqt_console:
+```bash
+$ ros2 run rqt_console rqt_console
+```
+The first section of the console is where log messages from your system will display.<br>
+In the middle you have the option to filter messages by excluding severity levels. You can also add more exclusion filters using the plus-sign button to the right.<br>
+The bottom section is for highlighting messages that include a string you input. 
+You can add more filters to this section as well.
+## 2. Logger levels
+ROS 2’s logger levels are ordered by severity:
+1. Fatal
+2. Error
+3. Warn
+4. Info
+5. Debug
+There is no exact standard for what each level indicates, but the names speak for themselves.<br>
+The default level is Info. You will only see messages of the default severity level and more-severe levels.<br>
+Normally, only Debug messages are hidden because they’re the only level less severe than Info.<br>
+For example, if you set the default level to Warn, you would only see messages of severity Warn, Error, and Fatal.
+## 2.1 Set default logger level
+You can set the default logger level when you first run the /turtlesim node using remapping:
+```bash
+$ ros2 run turtlesim turtlesim_node --ros-args --log-level WARN
+```
+Now you won’t see the initial Info level messages that came up in the console last time you started turtlesim.
