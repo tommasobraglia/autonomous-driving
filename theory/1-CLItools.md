@@ -459,12 +459,65 @@ turtlesim.srv.Spawn_Response(name='turtle2')
 '''
 ```
 
+---
 
+# Understanding parameters
+A parameter is a configuration value of a node.<br> 
+You can think of parameters as node settings.<br>
+A node can store parameters as integers, floats, booleans, strings, and lists.<br> 
+In ROS 2, each node maintains its own parameters. 
+## Tasks
+### 1. Setup
+Same old stuff, and start /turtlesim and /teleop_turtle.
+### 2. ros2 param list
+To see the parameters belonging to your nodes:
+```bash
+$ ros2 param list
+#A list of parameters for each node will show on the terminal
+```
+### 3. ros2 param get
+To display the type and current value of a parameter:
+```bash
+$ ros2 param get <node_name> <parameter_name>
 
+#Example:
+$ ros2 param get /turtlesim background_g
+# -> Integer value is: X
+# You can do he same for background_r and background_b...
+# and for every param
+```
+### 4. ros2 param set
+To change a parameter’s value at runtime:
+```bash
+$ ros2 param set <node_name> <parameter_name> <value>
 
+#Example:
+$ ros2 param set /turtlesim background_r 150
+```
+Setting parameters with the set command will only change them in your current session, not permanently.<br>
+However, you can save your settings and reload them the next time you start a node.
+### 5. ros2 param dump
+You can view all of a node’s current parameter values by using the command:
+```bash
+$ ros2 param dump <node_name>
+#The command prints to the standard output (stdout) by default
 
+#To save your current config of /turtlesim's parameters into the turtlesim.yaml:
+$ ros2 param dump /turtlesim > turtlesim.yaml
+```
+### 6. ros2 param load
+You can load parameters from a file to a currently running node using the command:
+```bash
+$ ros2 param load <nome_name> <parameter_file>
 
+#Example:
+$ ros2 param load /turtlesim turtlesim.yaml
+```
+### 7. ros2 param file on node startup
+To start the same node using your saved parameter values, use:
+```bash
+$ ros2 run <package_name> <executable_name> --ros-args --params-file <file_name>
 
-
-
-
+#This is the same command you always use to start turtlesim, with the added flags --ros-args and --params-file, followed by the file you want to load.
+```
+When a parameter file is used at node startup, all parameters, including the read-only ones, will be updated.
