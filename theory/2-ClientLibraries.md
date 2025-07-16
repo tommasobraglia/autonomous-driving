@@ -90,4 +90,89 @@ $ colcon mixin update default
 
 ---
 # Creating a workspace
-Continue...
+A workspace is a directory containing ROS 2 packages.<br>
+Before using ROS 2, it’s necessary to source your ROS 2 installation workspace in the terminal you plan to work in.<br>
+This makes ROS 2’s packages available for you to use in that terminal.<br>
+You also have the option of sourcing an “overlay” - a secondary workspace where you can add new packages without interfering with the existing ROS 2 workspace that you’re extending, or “underlay”.<br>
+Your underlay must contain the dependencies of all the packages in your overlay.<br>
+Packages in your overlay will override packages in the underlay.<br>
+It’s also possible to have several layers of underlays and overlays, with each successive overlay using the packages of its parent underlays.
+## Tasks
+### 1. Source ROS 2 environment
+```bash
+# Your main ROS 2 installation will be your underlay for this tutorial. (Keep in mind that an underlay does not necessarily have to be the main ROS 2 installation.)
+$ source /opt/ros/humble/setup.bash
+```
+### 2. Create a new directory
+```bash
+# Best practice is to create a new directory for every new workspace. 
+$ mkdir -p ~/ros2_ws/src
+$ cd ~/ros2_ws/src
+
+# Another best practice is to put any packages in your workspace into the src directory.
+```
+### 3. Clone a sample repo
+Ensure you're still in the ros2_ws/src directory.<br>
+You will usually create your own packages, but for now it's better to practice putting a workspace together using existing packages.<br>
+A repo can have multiple branches. You need to check out the one that targets your installed ROS 2 distro.<br>
+```bash
+# In the ros2_ws/src directory: 
+$ git clone https://github.com/ros/ros_tutorials.git -b humble
+
+# Now ros_tutorials, which contains turtlesim, is now cloned in your workspace
+# !!! The other packages in this repository are not built because they contain a COLCON_IGNORE file.
+```
+So far you have populated your workspace with a sample package, but it isn’t a fully-functional workspace yet.<br>
+You need to resolve the dependencies first and then build the workspace.
+### 4. Resolve dependencies
+Before building the workspace, you need to resolve the package dependencies.<br>
+Best practice is to check for dependencies every time you clone.<br>
+```bash
+# If you're still in the src directory with the ros_tutorials clone:
+$ cd ..
+# From the root of your workspace (ros2_ws), run the following command:
+$ rosdep install -i --from-path src --rosdistro humble -y
+
+# If you have all your dependencies, you'll get a success message!
+```
+### 5. Build the workspace with colon
+From ros2_ws (root of workspace), you can now build your packages:
+```bash
+$ colcon build # ls, you'll now see new directories
+# The install directory is where your workspace’s setup files are, which you can use to source your overlay.
+
+# Check the documentation for other useful arguments for colcon build!
+```
+### 6. Source the overlay
+Before sourcing the overlay, it is very important that you open a new terminal, separate from the one where you built the workspace. 
+In the new terminal, source your main ROS 2 environment as the “underlay”, so you can build the overlay “on top of” it:
+```bash
+$ source /opt/ros/humble/setup.bash
+
+$ cd ~/ros2_ws
+
+$ source install/local_setup.bash
+
+'''
+Sourcing the local_setup of the overlay will only add the packages available in the overlay to your environment. setup sources the overlay as well as the underlay it was created in, allowing you to utilize both workspaces.
+So, sourcing your main ROS 2 installation’s setup and then the ros2_ws overlay’s local_setup, like you just did, is the same as just sourcing ros2_ws’s setup, because that includes the environment of its underlay.
+'''
+
+# Now you can run the turtlesim package from the overlay:
+$ ros2 run turtlesim turtlesim_node
+```
+### 7. Modify the overlay (optional)
+But how can you tell that this is the overlay turtlesim running, and not your main installation’s turtlesim?<br>
+Let’s modify turtlesim in the overlay so you can see the effects:
+- You can modify and rebuild packages in the overlay separately from the underlay.
+- The overlay takes precedence over the underlay.
+You can modify turtlesim in your overlay by editing the title bar on the turtlesim window.<br>
+To do this, locate the turtle_frame.cpp file in ~/ros2_ws/src/ros_tutorials/turtlesim/src. Open turtle_frame.cpp with your preferred text editor.<br>
+Find the function setWindowTitle("TurtleSim");, change the value "TurtleSim" to "MyTurtleSim", and save the file.<br>
+Return to the first terminal where you ran colcon build earlier and run it again.<br>
+Return to the second terminal (where the overlay is sourced) and run turtlesim again:
+```bash
+$ ros2 run turtlesim turtlesim_node # you will now see that the title bar has changed
+```
+Even though your main ROS 2 environment was sourced in this terminal earlier, the overlay of your ros2_ws environment takes precedence over the contents of the underlay.<br>
+To see that your underlay is still intact, open a brand new terminal and source only your ROS 2 installation. Run turtlesim again.
