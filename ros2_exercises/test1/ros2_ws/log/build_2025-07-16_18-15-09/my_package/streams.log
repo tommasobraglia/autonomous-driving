@@ -1,0 +1,25 @@
+[0.009s] Invoking command in '/home/tbraglia/ros2_exercises/test1/ros2_ws/build/my_package': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/tbraglia/ros2_exercises/test1/ros2_ws/build/my_package -- -j4 -l4
+[0.036s] [35m[1mConsolidate compiler generated dependencies of target my_node[0m
+[0.042s] [ 50%] [32mBuilding CXX object CMakeFiles/my_node.dir/src/my_node.cpp.o[0m
+[0.063s] [100%] [32m[1mLinking CXX executable my_node[0m
+[0.087s] [100%] Built target my_node
+[0.093s] Invoked command in '/home/tbraglia/ros2_exercises/test1/ros2_ws/build/my_package' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/tbraglia/ros2_exercises/test1/ros2_ws/build/my_package -- -j4 -l4
+[0.098s] Invoking command in '/home/tbraglia/ros2_exercises/test1/ros2_ws/build/my_package': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/tbraglia/ros2_exercises/test1/ros2_ws/build/my_package
+[0.102s] -- Install configuration: ""
+[0.102s] -- Installing: /home/tbraglia/ros2_exercises/test1/ros2_ws/install/my_package/lib/my_package/my_node
+[0.102s] -- Up-to-date: /home/tbraglia/ros2_exercises/test1/ros2_ws/install/my_package/share/ament_index/resource_index/package_run_dependencies/my_package
+[0.102s] -- Up-to-date: /home/tbraglia/ros2_exercises/test1/ros2_ws/install/my_package/share/ament_index/resource_index/parent_prefix_path/my_package
+[0.102s] -- Up-to-date: /home/tbraglia/ros2_exercises/test1/ros2_ws/install/my_package/share/my_package/environment/ament_prefix_path.sh
+[0.102s] -- Up-to-date: /home/tbraglia/ros2_exercises/test1/ros2_ws/install/my_package/share/my_package/environment/ament_prefix_path.dsv
+[0.102s] -- Up-to-date: /home/tbraglia/ros2_exercises/test1/ros2_ws/install/my_package/share/my_package/environment/path.sh
+[0.102s] -- Up-to-date: /home/tbraglia/ros2_exercises/test1/ros2_ws/install/my_package/share/my_package/environment/path.dsv
+[0.102s] -- Up-to-date: /home/tbraglia/ros2_exercises/test1/ros2_ws/install/my_package/share/my_package/local_setup.bash
+[0.102s] -- Up-to-date: /home/tbraglia/ros2_exercises/test1/ros2_ws/install/my_package/share/my_package/local_setup.sh
+[0.102s] -- Up-to-date: /home/tbraglia/ros2_exercises/test1/ros2_ws/install/my_package/share/my_package/local_setup.zsh
+[0.102s] -- Up-to-date: /home/tbraglia/ros2_exercises/test1/ros2_ws/install/my_package/share/my_package/local_setup.dsv
+[0.102s] -- Up-to-date: /home/tbraglia/ros2_exercises/test1/ros2_ws/install/my_package/share/my_package/package.dsv
+[0.102s] -- Up-to-date: /home/tbraglia/ros2_exercises/test1/ros2_ws/install/my_package/share/ament_index/resource_index/packages/my_package
+[0.102s] -- Up-to-date: /home/tbraglia/ros2_exercises/test1/ros2_ws/install/my_package/share/my_package/cmake/my_packageConfig.cmake
+[0.102s] -- Up-to-date: /home/tbraglia/ros2_exercises/test1/ros2_ws/install/my_package/share/my_package/cmake/my_packageConfig-version.cmake
+[0.102s] -- Up-to-date: /home/tbraglia/ros2_exercises/test1/ros2_ws/install/my_package/share/my_package/package.xml
+[0.103s] Invoked command in '/home/tbraglia/ros2_exercises/test1/ros2_ws/build/my_package' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/tbraglia/ros2_exercises/test1/ros2_ws/build/my_package
