@@ -1,29 +1,29 @@
 # Ignore colcon build artifacts
-test1/ros2_ws/build/
-test1/ros2_ws/install/
-test1/ros2_ws/log/
+ros2_exercises/test1/ros2_ws/build/
+ros2_exercises/test1/ros2_ws/install/
+ros2_exercises/test1/ros2_ws/log/
 
 # CMake and colcon cache
-test1/ros2_ws/**/CMakeFiles/
-test1/ros2_ws/**/CMakeCache.txt
-test1/ros2_ws/**/cmake_install.cmake
-test1/ros2_ws/**/Makefile
-test1/ros2_ws/**/.colcon_install_layout
+ros2_exercises/test1/ros2_ws/**/CMakeFiles/
+ros2_exercises/test1/ros2_ws/**/CMakeCache.txt
+ros2_exercises/test1/ros2_ws/**/cmake_install.cmake
+ros2_exercises/test1/ros2_ws/**/Makefile
+ros2_exercises/test1/ros2_ws/**/.colcon_install_layout
 
 # Python cache (just in case)
-test1/ros2_ws/**/__pycache__/
-test1/ros2_ws/**/*.pyc
-test1/ros2_ws/**/*.pyo
+ros2_exercises/test1/ros2_ws/**/__pycache__/
+ros2_exercises/test1/ros2_ws/**/*.pyc
+ros2_exercises/test1/ros2_ws/**/*.pyo
 
 # Test results
-test1/ros2_ws/test_results/
+ros2_exercises/test1/ros2_ws/test_results/
 
 # Editor/IDE files
-test1/ros2_ws/.vscode/
-test1/ros2_ws/.idea/
-test1/ros2_ws/*~
-test1/ros2_ws/*.swp
-test1/ros2_ws/*.swo
+ros2_exercises/test1/ros2_ws/.vscode/
+ros2_exercises/test1/ros2_ws/.idea/
+ros2_exercises/test1/ros2_ws/*~
+ros2_exercises/test1/ros2_ws/*.swp
+ros2_exercises/test1/ros2_ws/*.swo
 
 # macOS and misc
-test1/ros2_ws/.DS_Store
+ros2_exercises/test1/ros2_ws/.DS_Store
