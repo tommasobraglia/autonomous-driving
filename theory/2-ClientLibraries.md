@@ -176,3 +176,75 @@ $ ros2 run turtlesim turtlesim_node # you will now see that the title bar has ch
 ```
 Even though your main ROS 2 environment was sourced in this terminal earlier, the overlay of your ros2_ws environment takes precedence over the contents of the underlay.<br>
 To see that your underlay is still intact, open a brand new terminal and source only your ROS 2 installation. Run turtlesim again.
+
+---
+# Creating a package
+A package is an organizational unit for your ROS 2 code.<br> 
+If you want to be able to install your code or share it with others, then you’ll need it organized in a package.<br> 
+Package creation in ROS 2 uses ament as its build system and colcon as its build tool.<br> 
+You can create a package using either CMake or Python, which are officially supported, though other build types do exist.
+### What makes up a ROS 2 package?
+ROS 2 Python and CMake packages each have their own minimum required contents:
+<img src="./images/ss1.png" style ="width=200px"/>
+<img src="./images/ss2.png" style ="width=200px"/> <br>
+A single workspace can contain as many packages as you want, each in their own folder.<br>
+You can also have packages of different build types in one workspace (CMake, Python, etc.).<br> 
+You cannot have nested packages.<br>
+Best practice is to have a src folder within your workspace, and to create your packages in there. This keeps the top level of the workspace “clean”.<br>
+
+```bash
+'''
+workspace_folder/
+    src/
+      cpp_package_1/
+          CMakeLists.txt
+          include/cpp_package_1/
+          package.xml
+          src/
+
+      py_package_1/
+          ...
+      
+      ...
+'''
+```
+## Tasks
+### 1. Create a package
+Let's use the workspace already created, ros2_ws.<br>
+```bash
+$ cd ~/ros2_ws/src
+
+# Create a new package in ROS 2:
+$ ros2 pkg create --build-type ament_cmake --license Apache-2.0 <package_name> # C++
+$ ros2 pkg create --build-type ament_python --license Apache-2.0 <package_name> # Python
+
+# For this tutorial, the optional argument --node-name is used
+# It creates a simple hello world type executable in the package
+
+$ ros2 pkg create --build-type ament_cmake --license Apache-2.0 --node-name my_node my_package # C++
+
+$ ros2 pkg create --build-type ament_python --license Apache-2.0 --node-name my_node my_package # Python
+
+# You will now have a new folder within your workspace's src directory
+```
+### 1. Build a package
+Putting packages in a workspace allows you to build many packages at once by running colcon build in the workspace root.
+```bash
+$ cd ~/ros2_ws # root
+$ colcon build # build
+
+# When you have many packages (remember turtlesim?), colcon build can take a long time, unless:
+$ colcon build --packages-select my_package # build
+```
+### 2. Source the setup file
+To use your new package and executable, you have to source ROS 2 in the root (ros2_ws).<br>
+### 3. Use the package
+To run the executable you created using the --node-name argument during package creation:
+```bash
+$ ros2 run my_package my_node # will return something like: hello world ...
+```
+### 4. Examine package contents
+Inside ros2_ws/src/my_package, you will see the files and folders that ros2 pkg create automatically generated.<br>
+my_node.cpp, inside the src directory, is wher all your custom c++ nodes will go.
+### 5. Customize package.xml
+You find it in root/src/package. Change what has a TODO.
