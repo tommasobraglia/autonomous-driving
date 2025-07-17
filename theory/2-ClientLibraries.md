@@ -138,7 +138,8 @@ $ rosdep install -i --from-path src --rosdistro humble -y
 ### 5. Build the workspace with colon
 From ros2_ws (root of workspace), you can now build your packages:
 ```bash
-$ colcon build # ls, you'll now see new directories
+$ $ colcon build --executor sequential --symlink-install 
+# ls, you'll now see new directories
 # The install directory is where your workspace’s setup files are, which you can use to source your overlay.
 
 # Check the documentation for other useful arguments for colcon build!
@@ -242,6 +243,9 @@ To use your new package and executable, you have to source ROS 2 in the root (ro
 To run the executable you created using the --node-name argument during package creation:
 ```bash
 $ ros2 run my_package my_node # will return something like: hello world ...
+
+# To save an update:
+$ colcon build --executor sequential --symlink-install
 ```
 ### 4. Examine package contents
 Inside ros2_ws/src/my_package, you will see the files and folders that ros2 pkg create automatically generated.<br>
@@ -251,3 +255,5 @@ You find it in root/src/package. Change what has a TODO.
 
 ---
 # Writing a simple publisher and subscriber (C++)
+In this tutorial, the nodes will pass information in the form of string messages to each other over a topic.<br> 
+The example used here is a simple “talker” and “listener” system; one node publishes data and the other subscribes to the topic so it can receive that data.
