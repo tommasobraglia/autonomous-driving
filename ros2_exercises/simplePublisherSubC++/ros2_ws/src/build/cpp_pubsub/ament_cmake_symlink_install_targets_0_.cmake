@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/tbraglia/autonomous-driving/ros2_exercises/simplePublisherSubC++/ros2_ws/src/build/cpp_pubsub/talker" "TARGETS" "talker" "DESTINATION" "lib/cpp_pubsub")

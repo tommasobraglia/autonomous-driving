@@ -255,5 +255,42 @@ You find it in root/src/package. Change what has a TODO.
 
 ---
 # Writing a simple publisher and subscriber (C++)
+Nodes are executable processes that communicate over the ROS graph.<br>
 In this tutorial, the nodes will pass information in the form of string messages to each other over a topic.<br> 
 The example used here is a simple “talker” and “listener” system; one node publishes data and the other subscribes to the topic so it can receive that data.
+## Tasks
+No need to rewrite everything.<br>
+Check ros2_exercises/simplePublisherSubC++ folder.
+https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Cpp-Publisher-And-Subscriber.html#id4
+### Add dependencies
+Navigate one level back to the ros2_ws/src/cpp_pubsub directory, where the CMakeLists.txt and package.xml files have been created for you. <br>
+Open package.xml with your text editor. <br>
+As mentioned in the previous tutorial, make sure to fill in the <description>, <maintainer> and <license> tags. <br>
+Add a new line after the ament_cmake buildtool dependency and paste the following dependencies corresponding to your node’s include statements:
+```xml
+<depend>rclcpp</depend>
+<depend>std_msgs</depend>
+
+This declares the package needs rclcpp and std_msgs when its code is built and executed.
+```
+Now open the CMakeLists.txt file.<br>
+Below the existing dependency find_package(ament_cmake REQUIRED), add the lines:
+```txt
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+```
+After that, add the executable and name it talker so you can run your node using ros2 run:
+```txt
+add_executable(talker src/publisher_member_function.cpp)
+ament_target_dependencies(talker rclcpp std_msgs)
+```
+Finally, add the install(TARGETS...) section so ros2 run can find your executable:
+```txt
+install(TARGETS
+  talker
+  DESTINATION lib/${PROJECT_NAME})
+```
+<br>
+You could build your package now, source the local setup files, and run it. <br>
+But let’s create the subscriber node first so you can see the full system at work.<br>
+Check the link for the chapter and go to: "Write the subscriber node"

@@ -1,0 +1,1 @@
+/home/tbraglia/autonomous-driving/ros2_exercises/simplePublisherSubC++/ros2_ws/src/build/cpp_pubsub/ament_cmake_environment_hooks/local_setup.zsh
