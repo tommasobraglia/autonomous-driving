@@ -248,3 +248,6 @@ Inside ros2_ws/src/my_package, you will see the files and folders that ros2 pkg 
 my_node.cpp, inside the src directory, is wher all your custom c++ nodes will go.
 ### 5. Customize package.xml
 You find it in root/src/package. Change what has a TODO.
+
+---
+# Writing a simple publisher and subscriber (C++)
