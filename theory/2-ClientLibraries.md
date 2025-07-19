@@ -227,6 +227,8 @@ $ ros2 pkg create --build-type ament_cmake --license Apache-2.0 --node-name my_n
 $ ros2 pkg create --build-type ament_python --license Apache-2.0 --node-name my_node my_package # Python
 
 # You will now have a new folder within your workspace's src directory
+
+# if you use --dependencies argument, it will automatically add the necessary dependency lines to package.xml and CMakeLists.txt
 ```
 ### 1. Build a package
 Putting packages in a workspace allows you to build many packages at once by running colcon build in the workspace root.
@@ -294,3 +296,17 @@ install(TARGETS
 You could build your package now, source the local setup files, and run it. <br>
 But let’s create the subscriber node first so you can see the full system at work.<br>
 Check the link for the chapter and go to: "Write the subscriber node"
+
+---
+# Writing a simple service and client (C++)
+https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Cpp-Service-And-Client.html
+
+When nodes communicate using services, the node that sends a request for data is called the client node, and the one that responds to the request is the service node.<br>
+The structure of the request and response is determined by a .srv file.<br>
+The example used here is a simple integer addition system; one node requests the sum of two integers, and the other responds with the result.
+
+---
+# Creating custom msg and srv files
+The interfaces you used in the previous tutorails were predefined.<br>
+While it’s good practice to use predefined interface definitions, you will probably need to define your own messages and services sometimes as well.<br>
+This tutorial will introduce you to the simplest method of creating custom interface definitions.
